@@ -9,6 +9,7 @@ training script (loan_model.pkl + 3 LabelEncoder pickle files).
 from flask import Flask, render_template, request, jsonify
 import pickle
 import pandas as pd
+from pathlib import Path
 
 app = Flask(__name__)
 
@@ -16,10 +17,11 @@ app = Flask(__name__)
 # Load trained model and label encoders at startup
 # (these are the exact files produced by the training script)
 # ------------------------------------------------------------------
-MODEL_PATH = "loan_model.pkl"
-EDU_ENCODER_PATH = "education_encoder.pkl"
-EMP_ENCODER_PATH = "self_employed_encoder.pkl"
-STATUS_ENCODER_PATH = "status_encoder.pkl"
+MODEL_DIR = Path(__file__).resolve().parent / "model"
+MODEL_PATH = MODEL_DIR / "loan_model.pkl"
+EDU_ENCODER_PATH = MODEL_DIR / "education_encoder.pkl"
+EMP_ENCODER_PATH = MODEL_DIR / "self_employed_encoder.pkl"
+STATUS_ENCODER_PATH = MODEL_DIR / "status_encoder.pkl"
 
 model = None
 le_education = None
